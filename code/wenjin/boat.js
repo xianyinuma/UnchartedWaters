@@ -23,7 +23,9 @@ class Boat extends MovableObject {
     }
 
     Fire() {
-        alert("fire");
+        //alert("fire");
+        let bullet = new Bullet();
+        return bullet;
     }
 
     Move() {

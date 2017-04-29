@@ -4,17 +4,12 @@
 
 //in the html, load the js file, must follow the inherit chain! By order!
 // let testBox = new Box(1, 2, 3, 4);
-// let movableObject = new MovableObject(5, 6);
-// testBox.Operate(boat);
-// movableObject.Update();
-// movableObject.Collision();
-// movableObject.Destroy();
 $(document).ready(function () {
 
     let scene, camera, renderer;
     let staticObj = new ArrayList();
-    let movableObj = new ArrayList();
-    let boat;
+    let boatArray = new ArrayList();
+    let bulletArray = new ArrayList();
     let output = $("#map-output");
 
     function setup() {
@@ -23,7 +18,12 @@ $(document).ready(function () {
 
         function render() {
             requestAnimationFrame(render);
-            boat.Update();
+            for (let i = 0; i < boatArray.size(); i++) {
+                boatArray.get(i).Update();
+            }
+            for (let i = 0; i < bulletArray.size(); i++) {
+                bulletArray.get(i).Update(boatArray);
+            }
             renderer.render(scene, camera);
         }
         render();
@@ -42,8 +42,17 @@ $(document).ready(function () {
     }
 
     function setupWorld() {
-        boat = new Boat();
-        scene.add(boat.body);
+        let boat = new Boat();
+        boatArray.add(boat);
+        for (let i = 0; i < boatArray.size(); i++) {
+            scene.add(boatArray.get(i).body);
+        }
+
+        let bullet = boat.Fire();
+        bulletArray.add(bullet);
+        for (let i = 0; i < bulletArray.size(); i++) {
+            scene.add(bulletArray.get(i).body);
+        }
     }
 
     function onResize() {
