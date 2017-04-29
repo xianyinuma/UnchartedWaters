@@ -8,7 +8,7 @@ class Boat extends MovableObject {
 
         this.level = 1;
         this.damage = Math.pow(2, this.level - 1);
-        this.speed = 10 / this.level;
+        this.horizontalSpeed = 10 / this.level;
         this.exp = 0;
         this.maxExp = 10 * Math.pow(2, this.level - 1);
         this.giveExp = this.maxExp / 2;
@@ -16,45 +16,67 @@ class Boat extends MovableObject {
         this.health = this.maxHealth;
 
 
-        let geometry = new THREE.CubeGeometry(2, 2, 2);
-        let material = new THREE.MeshBasicMaterial({color: 0xffffff * Math.random()});
+        let geometry = new THREE.CubeGeometry(2, 3, 4);
+        geometry.computeBoundingSphere();
+        let material = new THREE.MeshBasicMaterial({color: 0xffffff});
         this.body = new THREE.Mesh(geometry, material);
         this.body.updateMatrix();
     }
 
     Fire() {
-        //alert("fire");
-        let bullet = new Bullet();
-        return bullet;
+        let bulletID = 123;
+        return new Bullet(bulletID, this, this.level / 10);
     }
 
     Move() {
-        this.body.position.x += 0.1;
+        //this.body.position.x += 0.1;
     }
 
-    Die() {
-        alert("die");
-    }
-    
-    Update(){
+    Update(bulletArray, staticArray) {
         this.Move();
-        this.Collision();
+        var option = new Object();
+        option.staticObj = this.CollisionArray(staticArray);
+        option.bullet = this.CollisionArray(bulletArray);
+        return option;
+    }
+
+
+    CollisionArray(collisionArray) {
+        for (let i = 0; i < collisionArray.size(); i++) {
+            if (this.Collision(collisionArray.get(i).body))
+                return collisionArray.get(i);
+        }
+        return null;
     }
     
-    Collision(){
-        
+    Collision(collisionBody) {
+        let originPos = this.body.position.clone();
+        let collisionBodyPos = collisionBody.position.clone();
+
+        let distanceSquared = originPos.distanceTo(collisionBodyPos);
+
+        let collisionBodyRadius = collisionBody.geometry.boundingSphere.radius;
+        let radius = this.body.geometry.boundingSphere.radius;
+
+        // alert(radius);
+        // alert(collisionBodyRadius);
+        return ((radius + collisionBodyRadius - 1.75) * (radius + collisionBodyRadius - 1.75) >= distanceSquared)
     }
 
 
     ChangeHealth(add_health) {
+        alert("ChangeHealth " + add_health);
         var after_change = this.health + add_health;
         if (after_change > this.maxHealth) {
             this.health = this.maxHealth
         } else if (after_change <= 0) {
-            this.die();
+            this.health = 0;
+            this.Die();
+            return true;
         } else {
             this.health = after_change;
         }
+        return false;
     };
 
     ChangeExp(add_exp) {
@@ -69,7 +91,7 @@ class Boat extends MovableObject {
         if (after_exp > this.maxExp) {
             this.level += 1;
             this.damage = Math.pow(2, this.level - 1);
-            this.speed = 10 / this.level;
+            this.horizontalSpeed = 10 / this.level;
             this.exp = after_exp - this.maxExp;
             this.maxExp = 10 * Math.pow(2, this.level - 1);
             this.giveExp = this.maxExp / 2;

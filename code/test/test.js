@@ -7,10 +7,11 @@
 $(document).ready(function () {
 
     let scene, camera, renderer;
-    let staticObj = new ArrayList();
+    let staticArray = new ArrayList();
     let boatArray = new ArrayList();
     let bulletArray = new ArrayList();
     let output = $("#map-output");
+
 
     function setup() {
         setupThreeJS();
@@ -18,14 +19,26 @@ $(document).ready(function () {
 
         function render() {
             requestAnimationFrame(render);
+            
             for (let i = 0; i < boatArray.size(); i++) {
-                boatArray.get(i).Update();
+                let option = boatArray.get(i).Update(bulletArray, staticArray);
+
+                if (option.staticObj != null) {
+                    StaticObjHit(option.staticObj, boatArray.get(i));
+                }
+
+                if (option.bullet != null) {
+                    BulletHit(option.bullet, boatArray.get(i));
+                }
             }
+            
             for (let i = 0; i < bulletArray.size(); i++) {
-                bulletArray.get(i).Update(boatArray);
+                bulletArray.get(i).Update();
             }
+            
             renderer.render(scene, camera);
         }
+
         render();
         // listen to the resize events
         window.addEventListener('resize', onResize, false);
@@ -42,11 +55,13 @@ $(document).ready(function () {
     }
 
     function setupWorld() {
-        let boat = new Boat();
+        let boat = new Boat(1);
         boatArray.add(boat);
+
         for (let i = 0; i < boatArray.size(); i++) {
             scene.add(boatArray.get(i).body);
         }
+
 
         let bullet = boat.Fire();
         bulletArray.add(bullet);
@@ -60,6 +75,27 @@ $(document).ready(function () {
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
+
+    function BulletHit(bullet, boat) {
+        if(bullet.Operate(boat))
+            BoatDie(boat);
+
+        scene.remove(bullet.body);
+        bulletArray.remove(bullet);
+
+    }
+    
+    function BoatDie(boat) {
+        scene.remove(boat.body);
+        boatArray.remove(boat);
+    }
+
+    function StaticObjHit(staticObj, boat){
+        staticObj.Operate(boat);
+        scene.remove(staticObj.body);
+        staticArray.remove(staticObj);
+    }
+
 
     setup();
 });
