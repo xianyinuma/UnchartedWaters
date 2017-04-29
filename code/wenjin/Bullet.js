@@ -15,8 +15,8 @@ class Bullet extends MyObject {
         geometry.computeBoundingSphere();
         var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
         this.mesh = new THREE.Mesh(geometry, material);
-        this.mesh.position.x = -5;
-        this.mesh.position.y = 0;
+        // this.mesh.position.x = -5;
+        // this.mesh.position.y = 0;
 
         //scene.add(this.body);
         //movableObj.add(this);

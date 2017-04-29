@@ -135,5 +135,6 @@ function render() {
 
 
     // camera.lookAt( scene.position );
+    boat.timeExecute();
     renderer.render( scene, camera );
 }

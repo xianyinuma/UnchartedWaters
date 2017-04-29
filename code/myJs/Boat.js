@@ -41,6 +41,7 @@ function Boat(scene,camera, id) {
     };
 
 
+    //
 
     this.timeExecute = function(){
         if(Date.now() - time1 >= 500){
@@ -78,7 +79,6 @@ function Boat(scene,camera, id) {
         }
     };
 
-
     var move = function(key){
         switch(key){
             case 'w':
@@ -99,6 +99,7 @@ function Boat(scene,camera, id) {
                 break;
         }
     };
+
 
 
     var increaseSpd = function(){
@@ -176,6 +177,8 @@ function Boat(scene,camera, id) {
     };
 
 
+    //this part
+
     var changeHealth = function (add_health) {
         var after_change = health + add_health;
         if (after_change > maxHealth) {
@@ -210,6 +213,6 @@ function Boat(scene,camera, id) {
         }
     };
 
-    setInterval(this.timeExecute,50);
+    //setInterval(this.timeExecute,50);
 
 }

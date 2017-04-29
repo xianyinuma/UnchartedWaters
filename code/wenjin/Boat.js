@@ -29,20 +29,23 @@ class Boat extends MyObject {
     }
 
     Move() {
-        //this.body.position.x += 0.1;
+        this.mesh.position.x += 0.1;
     }
 
     Update(bulletArray, staticArray) {
         this.Move();
+        
         var option = new Object();
         option.staticObj = this.CollisionArray(staticArray);
         option.bullet = this.CollisionArray(bulletArray);
+        
         return option;
     }
 
 
     CollisionArray(collisionArray) {
         for (let i = 0; i < collisionArray.size(); i++) {
+
             if (this.Collision(collisionArray.get(i).mesh))
                 return collisionArray.get(i);
         }

@@ -7,6 +7,14 @@ class Box extends StaticObject {
         super(objectID);
         this.health = health;
         this.exp = exp;
+
+        var geometry = new THREE.SphereGeometry(0.5);
+        geometry.computeBoundingSphere();
+        var material = new THREE.MeshBasicMaterial({color: 0xffff00});
+        this.mesh = new THREE.Mesh(geometry, material);
+        this.mesh.position.x = 5;
+        this.mesh.position.y = 0;
+
     }
 
     Operate(boat){

@@ -19,7 +19,7 @@ $(document).ready(function () {
 
         function render() {
             requestAnimationFrame(render);
-            
+
             for (let i = 0; i < boatArray.size(); i++) {
                 let option = boatArray.get(i).Update(bulletArray, staticArray);
 
@@ -31,11 +31,11 @@ $(document).ready(function () {
                     BulletHit(option.bullet, boatArray.get(i));
                 }
             }
-            
+
             for (let i = 0; i < bulletArray.size(); i++) {
                 bulletArray.get(i).Update();
             }
-            
+
             renderer.render(scene, camera);
         }
 
@@ -62,12 +62,18 @@ $(document).ready(function () {
             scene.add(boatArray.get(i).mesh);
         }
 
-
-        let bullet = boat.Fire();
-        bulletArray.add(bullet);
-        for (let i = 0; i < bulletArray.size(); i++) {
-            scene.add(bulletArray.get(i).mesh);
+        let box = new Portal(23, 1, 10, 10);
+        staticArray.add(box);
+        for (let i = 0; i < staticArray.size(); i++) {
+            scene.add(staticArray.get(i).mesh);
         }
+
+
+        // let bullet = boat.Fire();
+        // bulletArray.add(bullet);
+        // for (let i = 0; i < bulletArray.size(); i++) {
+        //     scene.add(bulletArray.get(i).mesh);
+        // }
     }
 
     function onResize() {
@@ -77,20 +83,20 @@ $(document).ready(function () {
     }
 
     function BulletHit(bullet, boat) {
-        if(bullet.Operate(boat))
+        if (bullet.Operate(boat))
             BoatDie(boat);
 
         scene.remove(bullet.mesh);
         bulletArray.remove(bullet);
 
     }
-    
+
     function BoatDie(boat) {
         scene.remove(boat.mesh);
         boatArray.remove(boat);
     }
 
-    function StaticObjHit(staticObj, boat){
+    function StaticObjHit(staticObj, boat) {
         staticObj.Operate(boat);
         scene.remove(staticObj.mesh);
         staticArray.remove(staticObj);
