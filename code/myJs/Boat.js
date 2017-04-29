@@ -11,8 +11,8 @@ function Boat(scene,camera, id) {
     var maxHealth = 3 * Math.pow(2, level - 1);
     var health = maxHealth;
 
-
     var speedTimeDecreaseFlag = false;
+
 
     var theta = 0;
     var curSpeed = 0;
@@ -192,7 +192,7 @@ function Boat(scene,camera, id) {
             exp += add_exp;
         }
     };
-
+    
     var levelUp = function (added_exp) {
         var after_exp = exp + added_exp;
         if (after_exp > maxExp) {

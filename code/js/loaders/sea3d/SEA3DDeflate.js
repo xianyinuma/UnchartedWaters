@@ -35,9 +35,9 @@ SEA3D.Deflate = function () {
 	/* variables (inflate) */
 	var zip_slide;
 	var zip_wp; // current position in slide
-	var zip_fixed_tl = null;	// inflate static
-	var zip_fixed_td; // inflate static
-	var zip_fixed_bl, fixed_bd, zip_fixed_bd;	// inflate static
+	var zip_fixed_tl = null;	// inflate staticObj
+	var zip_fixed_td; // inflate staticObj
+	var zip_fixed_bl, fixed_bd, zip_fixed_bd;	// inflate staticObj
 	var zip_bit_buf; // bit buffer
 	var zip_bit_len; // bits in bit buffer
 	var zip_method;

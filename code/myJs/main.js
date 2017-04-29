@@ -97,7 +97,7 @@ function onKeyDown(event){
     var value = String.fromCharCode(event.keyCode).toLowerCase();
 
     boat.control(value);
-    
+
 }
 
 
