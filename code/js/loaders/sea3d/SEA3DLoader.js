@@ -1616,7 +1616,7 @@ THREE.SEA3D.prototype.updateTransform = function ( obj3d, sea ) {
 	mtx.scale( vec.set( 1 / obj3d.scale.x, 1 / obj3d.scale.y, 1 / obj3d.scale.z ) );
 	obj3d.rotation.setFromRotationMatrix( mtx );
 
-	// optimize if is static
+	// optimize if is staticObj
 
 	if ( this.config.forceStatic || sea.isStatic ) {
 

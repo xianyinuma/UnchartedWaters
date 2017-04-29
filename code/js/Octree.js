@@ -81,7 +81,7 @@
 		
 		parameters.tree = this;
 		
-		// static properties ( modification is not recommended )
+		// staticObj properties ( modification is not recommended )
 		
 		this.nodeCount = 0;
 		

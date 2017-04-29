@@ -186,7 +186,7 @@ function isEar(data, ear, minX, minY, size) {
     // if we use z-order curve hashing, iterate through the curve
     if (minX !== undefined) {
 
-        // triangle bbox; min & max are calculated like this for speed
+        // triangle bbox; min & max are calculated like this for horizontalSpeed
         var minTX = ax < bx ? (ax < cx ? ax : cx) : (bx < cx ? bx : cx),
             minTY = ay < by ? (ay < cy ? ay : cy) : (by < cy ? by : cy),
             maxTX = ax > bx ? (ax > cx ? ax : cx) : (bx > cx ? bx : cx),

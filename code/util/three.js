@@ -11310,7 +11310,7 @@
 
 		}(),
 
-		// static/instance method to calculate barycentric coordinates
+		// staticObj/instance method to calculate barycentric coordinates
 		// based on: http://www.blackpawn.com/texts/pointinpoly/default.html
 		barycoordFromPoint: function () {
 
@@ -31671,7 +31671,7 @@
 
 	Object.assign( KeyframeTrack, {
 
-		// Serialization (in static context, because of constructor invocation
+		// Serialization (in staticObj context, because of constructor invocation
 		// and automatic invocation of .toJSON):
 
 		parse: function( json ) {
@@ -31695,7 +31695,7 @@
 
 			}
 
-			// derived classes can define a static parse method
+			// derived classes can define a staticObj parse method
 			if ( trackType.parse !== undefined ) {
 
 				return trackType.parse( json );
@@ -31716,7 +31716,7 @@
 
 			var json;
 
-			// derived classes can define a static toJSON method
+			// derived classes can define a staticObj toJSON method
 			if ( trackType.toJSON !== undefined ) {
 
 				json = trackType.toJSON( track );

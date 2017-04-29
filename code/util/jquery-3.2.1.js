@@ -2954,7 +2954,7 @@ var rootjQuery,
 	// A simple way to check for HTML strings
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
 	// Strict HTML recognition (#11290: must start with <)
-	// Shortcut simple #id case for speed
+	// Shortcut simple #id case for horizontalSpeed
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 
 	init = jQuery.fn.init = function( selector, context, root ) {
@@ -7200,7 +7200,7 @@ jQuery.Animation = jQuery.extend( Animation, {
 	}
 } );
 
-jQuery.speed = function( speed, easing, fn ) {
+jQuery.horizontalSpeed = function(speed, easing, fn ) {
 	var opt = speed && typeof speed === "object" ? jQuery.extend( {}, speed ) : {
 		complete: fn || !fn && easing ||
 			jQuery.isFunction( speed ) && speed,
@@ -7255,7 +7255,7 @@ jQuery.fn.extend( {
 	},
 	animate: function( prop, speed, easing, callback ) {
 		var empty = jQuery.isEmptyObject( prop ),
-			optall = jQuery.speed( speed, easing, callback ),
+			optall = jQuery.horizontalSpeed( speed, easing, callback ),
 			doAnimation = function() {
 
 				// Operate on a copy of prop so per-property easing won't be lost
@@ -7436,7 +7436,7 @@ jQuery.fx.speeds = {
 	slow: 600,
 	fast: 200,
 
-	// Default speed
+	// Default horizontalSpeed
 	_default: 400
 };
 
@@ -9913,8 +9913,8 @@ jQuery.offset = {
 			curElem = jQuery( elem ),
 			props = {};
 
-		// Set position first, in-case top/left are set even on static elem
-		if ( position === "static" ) {
+		// Set position first, in-case top/left are set even on staticObj elem
+		if ( position === "staticObj" ) {
 			elem.style.position = "relative";
 		}
 
@@ -10052,7 +10052,7 @@ jQuery.fn.extend( {
 		return this.map( function() {
 			var offsetParent = this.offsetParent;
 
-			while ( offsetParent && jQuery.css( offsetParent, "position" ) === "static" ) {
+			while ( offsetParent && jQuery.css( offsetParent, "position" ) === "staticObj" ) {
 				offsetParent = offsetParent.offsetParent;
 			}
 

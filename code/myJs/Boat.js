@@ -4,7 +4,7 @@ function Boat(id) {
 
     this.level = 1;
     this.damage = Math.pow(2, this.level - 1);
-    this.speed = 10 / this.level;
+    this.horizontalSpeed = 10 / this.level;
     this.exp = 0;
     this.maxExp = 10 * Math.pow(2, this.level - 1);
     this.giveExp = this.maxExp / 2;
@@ -54,7 +54,7 @@ function Boat(id) {
         if (after_exp > this.maxExp) {
             this.level += 1;
             this.damage = Math.pow(2, this.level - 1);
-            this.speed = 10 / this.level;
+            this.horizontalSpeed = 10 / this.level;
             this.exp = after_exp - this.maxExp;
             this.maxExp = 10 * Math.pow(2, this.level - 1);
             this.giveExp = this.maxExp / 2;
