@@ -2,7 +2,7 @@
  * Created by Victor on 2017/4/27.
  */
 
-class Boat extends MovableObject {
+class Boat extends MyObject {
     constructor(id) {
         super(id);
 

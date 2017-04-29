@@ -2,7 +2,7 @@
  * Created by Victor on 2017/4/25.
  */
 
-class Bullet extends MovableObject {
+class Bullet extends MyObject {
     constructor(objectID, boat, speed) {
         super(objectID);
         this.boat = boat;//to do
