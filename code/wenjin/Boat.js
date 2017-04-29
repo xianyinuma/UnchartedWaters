@@ -15,23 +15,31 @@ class Boat extends MyObject {
         this.maxHealth = 3 * Math.pow(2, this.level - 1);
         this.health = this.maxHealth;
 
+        this.speedTimeDereaseFlag = false;
 
-        let geometry = new THREE.CubeGeometry(2, 3, 4);
-        geometry.computeBoundingSphere();
-        let material = new THREE.MeshBasicMaterial({color: 0xffffff});
-        this.mesh = new THREE.Mesh(geometry, material);
+        // let geometry = new THREE.CubeGeometry(20,30,40);
+        // geometry.computeBoundingSphere();
+        // let material = new THREE.MeshBasicMaterial({color: 0xffffff});
+        this.mesh = BOAT.clone();
+        this.mesh.position.y = 10;
         this.mesh.updateMatrix();
     }
 
     Fire() {
         let bulletID = 123;
-        return new Bullet(bulletID, this, this.level / 10);
+        let bullet = new Bullet(bulletID, this, this.level / 10);
+        bullet.mesh.position.set(this.mesh.position.clone());
+        bullet.mesh.position.z += 2;
+        bullet.mesh.position.y += 2;
+        return bullet;
     }
 
     Move() {
-        this.mesh.position.x += 0.1;
+        //this.mesh.position.x += 0.1;
+        // this.mesh.rotateY(0.1);
     }
-
+    
+    //返回碰撞物品集对象
     Update(bulletArray, staticArray) {
         this.Move();
         
@@ -41,8 +49,8 @@ class Boat extends MyObject {
         
         return option;
     }
-
-
+    
+    //返回碰撞物品对象
     CollisionArray(collisionArray) {
         for (let i = 0; i < collisionArray.size(); i++) {
 
@@ -51,7 +59,6 @@ class Boat extends MyObject {
         }
         return null;
     }
-    
     Collision(collisionBody) {
         let originPos = this.mesh.position.clone();
         let collisionBodyPos = collisionBody.position.clone();

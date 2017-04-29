@@ -175,9 +175,8 @@ function Boat(scene,camera, id) {
         });
 
     };
-
-
-    //this part
+    
+    //
 
     var changeHealth = function (add_health) {
         var after_change = health + add_health;
