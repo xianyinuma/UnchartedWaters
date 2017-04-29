@@ -24,7 +24,7 @@ $(document).ready(function () {
         let boat2 = new Boat(2);
         boat2.mesh.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
-                child.position.z = 100;
+                child.position.y = 0;
             }
         });
         boatArray.add(boat2);
@@ -42,10 +42,8 @@ $(document).ready(function () {
 
     function onKeyDown(event){
         var value = String.fromCharCode(event.keyCode).toLowerCase();
-        // if(value == " "){
-        //     map.fire(boat);
-        // }
 
         boat.control(value);
     }
+    
 });

@@ -55,7 +55,7 @@ class Boat extends MyObject {
                 }
             }
 
-            forward(curSpeed);
+            // forward(curSpeed); todo
 
         };
 
