@@ -2,8 +2,8 @@
  * Created by wenjin on 2017/4/28.
  */
 class MyObject {
-    constructor(objectID, body) {
+    constructor(objectID) {
         this.objectID = objectID;
-        this.body = body;
+        this.body = null;
     }
 }
