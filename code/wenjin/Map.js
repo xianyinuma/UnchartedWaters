@@ -25,6 +25,7 @@ class Map {
         let renderer = new THREE.WebGLRenderer();
 
         camera.position.set(0, 20, 100);
+        new THREE.OrbitControls( camera, renderer.domElement );
         renderer.setSize(window.innerWidth, window.innerHeight);
         this.output.append(renderer.domElement);
 
@@ -170,6 +171,7 @@ class Map {
                 bulletArray.get(i).Update();
             }
 
+            boat.timeExecute();
 
             water.material.uniforms.time.value += 1.0 / 60.0;
             water.render();

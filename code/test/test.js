@@ -4,6 +4,7 @@
 
 //in the html, load the js file, must follow the inherit chain! By order!
 // let testBox = new Box(1, 2, 3, 4);
+var boat;
 $(document).ready(function () {
     let length = 1200;
     let width = 900;
@@ -17,8 +18,16 @@ $(document).ready(function () {
 
     setTimeout(function () {
         //添加一艘船
-        let boat = new Boat(1);
+        boat = new Boat(1);
         boatArray.add(boat);
+
+        let boat2 = new Boat(2);
+        boat2.mesh.traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.position.z = 100;
+            }
+        });
+        boatArray.add(boat2);
 
         let output = $("#map-output");
 
@@ -29,12 +38,14 @@ $(document).ready(function () {
     //发射子弹
     // map.fire(boat);
 
-    // document.addEventListener('keydown',onKeyDown,false);
+    document.addEventListener('keydown',onKeyDown,false);
 
     function onKeyDown(event){
         var value = String.fromCharCode(event.keyCode).toLowerCase();
-        if(value == " "){
-            map.fire(boat);
-        }
+        // if(value == " "){
+        //     map.fire(boat);
+        // }
+
+        boat.control(value);
     }
 });

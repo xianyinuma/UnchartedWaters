@@ -83,12 +83,12 @@ function Boat(scene,camera, id) {
         switch(key){
             case 'w':
                 increaseSpd();
-                time1 = Date.now();
+                // time1 = Date.now();
                 speedTimeDecreaseFlag = false;
                 break;
             case 's':
                 decreaseSpd();
-                time1 = Date.now();
+                // time1 = Date.now();
                 speedTimeDecreaseFlag = false;
                 break;
             case 'a':
@@ -175,7 +175,7 @@ function Boat(scene,camera, id) {
         });
 
     };
-    
+
     //
 
     var changeHealth = function (add_health) {
