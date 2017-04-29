@@ -59,14 +59,14 @@ $(document).ready(function () {
         boatArray.add(boat);
 
         for (let i = 0; i < boatArray.size(); i++) {
-            scene.add(boatArray.get(i).body);
+            scene.add(boatArray.get(i).mesh);
         }
 
 
         let bullet = boat.Fire();
         bulletArray.add(bullet);
         for (let i = 0; i < bulletArray.size(); i++) {
-            scene.add(bulletArray.get(i).body);
+            scene.add(bulletArray.get(i).mesh);
         }
     }
 
@@ -80,19 +80,19 @@ $(document).ready(function () {
         if(bullet.Operate(boat))
             BoatDie(boat);
 
-        scene.remove(bullet.body);
+        scene.remove(bullet.mesh);
         bulletArray.remove(bullet);
 
     }
     
     function BoatDie(boat) {
-        scene.remove(boat.body);
+        scene.remove(boat.mesh);
         boatArray.remove(boat);
     }
 
     function StaticObjHit(staticObj, boat){
         staticObj.Operate(boat);
-        scene.remove(staticObj.body);
+        scene.remove(staticObj.mesh);
         staticArray.remove(staticObj);
     }
 

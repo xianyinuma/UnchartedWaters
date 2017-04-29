@@ -4,6 +4,6 @@
 class MyObject {
     constructor(objectID) {
         this.objectID = objectID;
-        this.body = null;
+        this.mesh = null;
     }
 }

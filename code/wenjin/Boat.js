@@ -19,8 +19,8 @@ class Boat extends MyObject {
         let geometry = new THREE.CubeGeometry(2, 3, 4);
         geometry.computeBoundingSphere();
         let material = new THREE.MeshBasicMaterial({color: 0xffffff});
-        this.body = new THREE.Mesh(geometry, material);
-        this.body.updateMatrix();
+        this.mesh = new THREE.Mesh(geometry, material);
+        this.mesh.updateMatrix();
     }
 
     Fire() {
@@ -43,20 +43,20 @@ class Boat extends MyObject {
 
     CollisionArray(collisionArray) {
         for (let i = 0; i < collisionArray.size(); i++) {
-            if (this.Collision(collisionArray.get(i).body))
+            if (this.Collision(collisionArray.get(i).mesh))
                 return collisionArray.get(i);
         }
         return null;
     }
     
     Collision(collisionBody) {
-        let originPos = this.body.position.clone();
+        let originPos = this.mesh.position.clone();
         let collisionBodyPos = collisionBody.position.clone();
 
         let distanceSquared = originPos.distanceTo(collisionBodyPos);
 
         let collisionBodyRadius = collisionBody.geometry.boundingSphere.radius;
-        let radius = this.body.geometry.boundingSphere.radius;
+        let radius = this.mesh.geometry.boundingSphere.radius;
 
         // alert(radius);
         // alert(collisionBodyRadius);

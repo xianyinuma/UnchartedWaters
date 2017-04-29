@@ -14,9 +14,9 @@ class Bullet extends MyObject {
         var geometry = new THREE.SphereGeometry(0.5);
         geometry.computeBoundingSphere();
         var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-        this.body = new THREE.Mesh(geometry, material);
-        this.body.position.x = -5;
-        this.body.position.y = 0;
+        this.mesh = new THREE.Mesh(geometry, material);
+        this.mesh.position.x = -5;
+        this.mesh.position.y = 0;
 
         //scene.add(this.body);
         //movableObj.add(this);
@@ -28,9 +28,9 @@ class Bullet extends MyObject {
 
     Move() {
         //bullet move
-        this.body.translateX(this.horizontalSpeed);
+        this.mesh.translateX(this.horizontalSpeed);
         this.verticalSpeed += this.gravity;
-        this.body.translateY(this.verticalSpeed);
+        this.mesh.translateY(this.verticalSpeed);
     }
 
     Operate(boat){
