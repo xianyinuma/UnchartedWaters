@@ -3,7 +3,8 @@
  */
 
 class Bullet extends MovableObject{
-    constructor(boat) {
+    constructor(objectID, boat) {
+        super(objectID);
         this.boat = boat;//to do
         this.speed = 0.1;//to do
         this.downSpeed = 0;
@@ -14,8 +15,8 @@ class Bullet extends MovableObject{
         this.body = new THREE.Mesh(geometry, material);
         this.body.position.x = -10;
 
-        scene.add(this.body);
-        movableObj.add(this);
+        //scene.add(this.body);
+        //movableObj.add(this);
     }
 
     Collision(CollisionArray) {
@@ -41,22 +42,24 @@ class Bullet extends MovableObject{
                 collisionResults[0].distance < (MovingCube.scale.x / 2 + 0.1)) {//原先是directionVector.length(),但在刚开始渲染阶段这个length有问题所以有修改
 
                 //take Damage and Destroy it
-                scene.remove(this.body);
+                //scene.remove(this.body);
+                //return the collide object
                 return true;
             }
         }
     }
 
-    m_update(CollisionArray) {
+    Update(CollisionArray) {
+        //bullet move
         this.body.translateX(this.speed);
         this.downSpeed += this.gravity;
         this.body.translateY(this.downSpeed);
 
-        return this.collision(CollisionArray);
+        return this.Collision(CollisionArray);
     }
 
     Destroy() {
-        scene.remove(this.body);
-        movableObj.remove(this);
+        //scene.remove(this.body);
+        //movableObj.remove(this);
     };
 }

@@ -56,6 +56,7 @@ class Boat extends MovableObject {
     };
 
     ChangeExp(add_exp) {
+        // some problem
         if (!this.LevelUp(add_exp)) {
             this.exp += add_exp;
         }
