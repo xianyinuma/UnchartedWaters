@@ -56,7 +56,7 @@ THREE.MD2CharacterComplex = function () {
 
 	// internal movement control variables
 
-	this.speed = 0;
+	this.horizontalSpeed = 0;
 	this.bodyOrientation = 0;
 
 	this.walkSpeed = this.maxSpeed;
@@ -388,7 +388,7 @@ THREE.MD2CharacterComplex = function () {
 		}
 
 
-		if ( Math.abs( this.speed ) < 0.2 * this.maxSpeed && ! ( controls.moveLeft || controls.moveRight || controls.moveForward || controls.moveBackward ) ) {
+		if ( Math.abs( this.horizontalSpeed ) < 0.2 * this.maxSpeed && ! ( controls.moveLeft || controls.moveRight || controls.moveForward || controls.moveBackward ) ) {
 
 			if ( this.activeAnimation !== idleAnimation ) {
 
@@ -442,15 +442,15 @@ THREE.MD2CharacterComplex = function () {
 
 		var controls = this.controls;
 
-		// speed based on controls
+		// horizontalSpeed based on controls
 
 		if ( controls.crouch ) 	this.maxSpeed = this.crouchSpeed;
 		else this.maxSpeed = this.walkSpeed;
 
 		this.maxReverseSpeed = - this.maxSpeed;
 
-		if ( controls.moveForward )  this.speed = THREE.Math.clamp( this.speed + delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
-		if ( controls.moveBackward ) this.speed = THREE.Math.clamp( this.speed - delta * this.backAcceleration, this.maxReverseSpeed, this.maxSpeed );
+		if ( controls.moveForward )  this.horizontalSpeed = THREE.Math.clamp( this.horizontalSpeed + delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
+		if ( controls.moveBackward ) this.horizontalSpeed = THREE.Math.clamp( this.horizontalSpeed - delta * this.backAcceleration, this.maxReverseSpeed, this.maxSpeed );
 
 		// orientation based on controls
 		// (don't just stand while turning)
@@ -460,30 +460,30 @@ THREE.MD2CharacterComplex = function () {
 		if ( controls.moveLeft ) {
 
 			this.bodyOrientation += delta * this.angularSpeed;
-			this.speed = THREE.Math.clamp( this.speed + dir * delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
+			this.horizontalSpeed = THREE.Math.clamp( this.horizontalSpeed + dir * delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
 
 		}
 
 		if ( controls.moveRight ) {
 
 			this.bodyOrientation -= delta * this.angularSpeed;
-			this.speed = THREE.Math.clamp( this.speed + dir * delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
+			this.horizontalSpeed = THREE.Math.clamp( this.horizontalSpeed + dir * delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
 
 		}
 
-		// speed decay
+		// horizontalSpeed decay
 
 		if ( ! ( controls.moveForward || controls.moveBackward ) ) {
 
-			if ( this.speed > 0 ) {
+			if ( this.horizontalSpeed > 0 ) {
 
-				var k = exponentialEaseOut( this.speed / this.maxSpeed );
-				this.speed = THREE.Math.clamp( this.speed - k * delta * this.frontDecceleration, 0, this.maxSpeed );
+				var k = exponentialEaseOut( this.horizontalSpeed / this.maxSpeed );
+				this.horizontalSpeed = THREE.Math.clamp( this.horizontalSpeed - k * delta * this.frontDecceleration, 0, this.maxSpeed );
 
 			} else {
 
-				var k = exponentialEaseOut( this.speed / this.maxReverseSpeed );
-				this.speed = THREE.Math.clamp( this.speed + k * delta * this.backAcceleration, this.maxReverseSpeed, 0 );
+				var k = exponentialEaseOut( this.horizontalSpeed / this.maxReverseSpeed );
+				this.horizontalSpeed = THREE.Math.clamp( this.horizontalSpeed + k * delta * this.backAcceleration, this.maxReverseSpeed, 0 );
 
 			}
 
@@ -491,7 +491,7 @@ THREE.MD2CharacterComplex = function () {
 
 		// displacement
 
-		var forwardDelta = this.speed * delta;
+		var forwardDelta = this.horizontalSpeed * delta;
 
 		this.root.position.x += Math.sin( this.bodyOrientation ) * forwardDelta;
 		this.root.position.z += Math.cos( this.bodyOrientation ) * forwardDelta;
