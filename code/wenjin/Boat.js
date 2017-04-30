@@ -3,8 +3,8 @@
  */
 
 class Boat extends MovableObject {
-    constructor(objectID) {
-        super(objectID);
+    constructor(radius, objectID) {
+        super(radius, objectID);
 
         this.level = 1;
         this.damage = Math.pow(2, this.level - 1);
@@ -16,11 +16,12 @@ class Boat extends MovableObject {
         this.health = this.maxHealth;
 
 
-        let geometry = new THREE.CubeGeometry(2, 3, 4);
-        geometry.computeBoundingSphere();
-        let material = new THREE.MeshBasicMaterial({color: 0xffffff});
-        this.mesh = new THREE.Mesh(geometry, material);
-        this.mesh.updateMatrix();
+        // let geometry = new THREE.CubeGeometry(2, 3, 4);
+        // geometry.computeBoundingSphere();
+        // let material = new THREE.MeshBasicMaterial({color: 0xffffff});
+        // this.mesh = new THREE.Mesh(geometry, material);
+        // this.mesh.updateMatrix();
+        this.mesh = BOAT.clone();
 
     }
 
@@ -46,22 +47,21 @@ class Boat extends MovableObject {
 
         let distanceSquared = originPos.distanceTo(collisionBodyPos);
 
-        let collisionBodyRadius = collisionBody.geometry.boundingSphere.radius;
-        let radius = this.mesh.geometry.boundingSphere.radius;
+        //let collisionBodyRadius = collisionBody.geometry.boundingSphere.radius;
+        //let radius = this.mesh.geometry.boundingSphere.radius;
 
         // alert(radius);
         // alert(collisionBodyRadius);
-        return ((radius + collisionBodyRadius - 1.75) * (radius + collisionBodyRadius - 1.75) >= distanceSquared)
+        //return ((radius + collisionBodyRadius - 1.75) * (radius + collisionBodyRadius - 1.75) >= distanceSquared)
     }
-
 
     Fire() {
         //let bulletID = 123;
-        return new Bullet(this.playerID, this.damage, this.level / 10);
+        return new Bullet(20, this.playerID, this.damage, this.level / 10);
     }
 
     Move() {
-        this.mesh.position.x += 0.01;
+        // this.mesh.position.x += 0.01;
     }
 
     ChangeHealth(add_health) {

@@ -10,7 +10,7 @@ class Player {
 
     }
     InitialBoat() {
-        this.boat = new Boat(this.playerID);
+        this.boat = new Boat(20, this.playerID);
         return this.boat;
     }
     Login() {

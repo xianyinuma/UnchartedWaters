@@ -3,6 +3,7 @@
  */
 class StaticObject{
     constructor() {
+        this.radius = null;
         this.mesh = null;
     }
     Operate() {

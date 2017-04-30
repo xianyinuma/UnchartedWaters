@@ -6,6 +6,17 @@
 // let testBox = new Box(1, 2, 3, 4);
 $(document).ready(function () {
 
-    let testManager = new GameManager(1);
+    //load models
+    LoadModels();
+    setTimeout(function() {
+        let testManager = new GameManager(1);
+    }, 1000);
 
+
+    function LoadModels() {
+        createWoodenShip();
+        createRecruit();
+        createBulletSphere();
+        createDoor(13, 1.7, 121, 12, 4, 4, 3.5);
+    }
 });

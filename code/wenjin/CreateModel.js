@@ -145,7 +145,7 @@ function createWoodenShip() {
         });
         object.scale.set(0.2, 0.2, 0.2);
         object.rotation.y = 1.54;
-        
+
         // object.geometry.computeBoundingSphere();
 
         BOAT = object;
