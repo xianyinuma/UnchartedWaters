@@ -2,47 +2,31 @@
  * Created by Victor on 2017/4/25.
  */
 
-class Bullet extends MyObject {
-    constructor(objectID, boat, speed) {
-        super(objectID);
-        this.boat = boat;//to do
+class Bullet extends MovableObject {
+    constructor(playerID, damage, speed) {
+        super(playerID);
+        //this.boat = boat;//to do
+        this.damage = damage;
         this.horizontalSpeed = speed;//to do
         this.verticalSpeed = 0;
         this.gravity = 0;//to do
 
         //for test (need to change)
-        var geometry = new THREE.SphereGeometry(0.5);
+        let geometry = new THREE.SphereGeometry(0.5);
         geometry.computeBoundingSphere();
-        var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+        let material = new THREE.MeshBasicMaterial({color: 0x00ff00});
         this.mesh = new THREE.Mesh(geometry, material);
-        // this.mesh.position.x = -5;
-        // this.mesh.position.y = 0;
 
-        //scene.add(this.body);
-        //movableObj.add(this);
-    }
+        this.mesh.position.x = -5;
+        this.mesh.position.y = 0;
 
-    Update() {
-        this.Move();
     }
 
     Move() {
-        //bullet move
+        //Bullet Move
         this.mesh.translateX(this.horizontalSpeed);
         this.verticalSpeed += this.gravity;
         this.mesh.translateY(this.verticalSpeed);
     }
 
-    Operate(boat){
-        if(boat.ChangeHealth(-this.boat.damage)){
-            this.boat.ChangeExp(boat.giveExp);
-            return true;
-        }
-        return false;
-    }
-
-    Destroy() {
-        //scene.remove(this.body);
-        //movableObj.remove(this);
-    };
 }

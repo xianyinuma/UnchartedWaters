@@ -3,8 +3,8 @@
  */
 class Box extends StaticObject {
     //initial the int: health and int: exp
-    constructor(objectID, health, exp) {
-        super(objectID);
+    constructor(health, exp) {
+        super();
         this.health = health;
         this.exp = exp;
 
