@@ -258,7 +258,7 @@ function createBullet() {
 }
 //The bullet which is round
 function createBulletSphere() {
-    var geometry = new THREE.SphereGeometry(3);
+    var geometry = new THREE.SphereGeometry(3, 50, 50);
 
     var material = new THREE.MeshPhongMaterial({
         color: 0x000000,

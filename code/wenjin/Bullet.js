@@ -8,15 +8,15 @@ class Bullet extends MovableObject {
         //this.boat = boat;//to do
         this.damage = damage;
         this.horizontalSpeed = speed;//to do
-        this.verticalSpeed = 0;
-        this.gravity = 0.01;//to do
+        this.verticalSpeed = speed * 0.1;
+        this.gravity = - 0.05;//to do
 
         //for test (need to change)
         // let geometry = new THREE.SphereGeometry(0.5);
         // geometry.computeBoundingSphere();
         // let material = new THREE.MeshBasicMaterial({color: 0x00ff00});
         // this.mesh = new THREE.Mesh(geometry, material);
-        //
+
         // this.mesh.position.x = -5;
         // this.mesh.position.y = 0;
         this.mesh = BULLETSPHERE.clone();
@@ -26,7 +26,7 @@ class Bullet extends MovableObject {
 
     Move() {
         //Bullet Move
-        this.mesh.translateX(this.horizontalSpeed);
+        this.mesh.translateZ(this.horizontalSpeed);
         this.verticalSpeed += this.gravity;
         this.mesh.translateY(this.verticalSpeed);
     }

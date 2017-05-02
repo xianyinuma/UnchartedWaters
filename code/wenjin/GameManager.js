@@ -16,17 +16,18 @@ class GameManager {
         var staticArray = null;
 
         boatArray = new ArrayList();
-        boatArray.add(currentBoat); 
+        boatArray.add(currentBoat);
 
         bulletArray = new ArrayList();
-        // bulletArray.add(new Boat(2).Fire());
+        let bullet = new Bullet(1,1,0);
+        bullet.mesh.position.y = 40;
+        bulletArray.add(bullet);
 
         staticArray = new ArrayList();
-        let box = new Box(1, 0);
         
-        
-        box.mesh.position.set(100, 0, 100);
-        staticArray.add(box);
+        // let box = new Box(1, 0);
+        // box.mesh.position.set(100, 0, 100);
+        // staticArray.add(box);
         // staticArray.add(new Portal(300, 1200, 900));
 
         //dynamic construct the camera
@@ -42,7 +43,8 @@ class GameManager {
         controls = new THREE.OrbitControls(camera, renderer.domElement);
 
         var map = new Map(output, length, width, renderer, camera);
-        
+
+        UpdateOutput(currentBoat, boatArray, bulletArray, staticArray);//todo
 
         function UpdateOutput(currentBoat, boatArray, bulletArray, staticArray) {
             let feedback = currentBoat.BoatCheck(bulletArray, staticArray);
@@ -55,18 +57,18 @@ class GameManager {
                 currentBoat.ChangeHealth(-feedback.bullet.damage);
                 if (currentBoat.health == 0) {
                     //died
-                    alert(boatArray.size());
                     boatArray.removeValue(currentBoat);
-                    alert(boatArray.size());
                     //send back the giveExp to do
 
                 }
                 bulletArray.removeValue(feedback.bullet);
 
             }
+            
             map.UpdateStatus(boatArray, bulletArray, staticArray);
             map.UpdateOutput(boatArray, bulletArray, staticArray);
-
+            
+            document.getElementById("debug").innerHTML = bulletArray.size();
         }
 
 
@@ -92,10 +94,10 @@ class GameManager {
 
             if(value == "f"){
                 let bullet = currentBoat.Fire();
-                alert(bullet.mesh.position.x);
-                alert(bullet.mesh.position.y);
-                alert(bullet.mesh.position.z);
-                bullet.mesh.position.set(0,0,0);
+                // alert(bullet.mesh.position.x);
+                // alert(bullet.mesh.position.y);
+                // alert(bullet.mesh.position.z);
+                // bullet.mesh.position.set(0,0,0);
                 bulletArray.add(bullet);
             }
 
@@ -117,8 +119,6 @@ class GameManager {
             });
         
             controls.target.set(currentBoat.mesh.position.x, currentBoat.mesh.position.y, currentBoat.mesh.position.z);
-            camera.position.x += ( mouseX - camera.position.x ) * 0.1;
-            camera.position.y += ( - mouseY - camera.position.y ) * 0.1;
             controls.update();
         }
         //镜头跟踪，用户体验无敌尬，不建议开启

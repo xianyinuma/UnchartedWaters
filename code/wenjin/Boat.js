@@ -60,20 +60,20 @@ class Boat extends MovableObject {
         let distanceSquared = originPos.distanceTo(collisionBodyPos);
 
         let collisionBodyRadius = collisionBody.radius;
+        
         let radius = this.radius;
 
-        // alert(radius);
-        // alert(collisionBodyRadius);
-        return ((radius + collisionBodyRadius) * (radius + collisionBodyRadius) >= distanceSquared)
+        return (radius + collisionBodyRadius) >= distanceSquared;
     }
 
     Fire() {
         //let bulletID = 123;
-        let bullet = new Bullet(20, this.playerID, this.damage, this.level / 10);
-        // bullet.mesh.position.x = this.mesh.position.x;
-        // bullet.mesh.position.y = this.radius + bullet.radius + 15;
-        // bullet.mesh.position.z = this.mesh.position.z + this.radius + bullet.radius + 15;
-        bullet.mesh.position.set(100, 100, 100);
+        let bullet = new Bullet(this.playerID, this.damage, this.level * 10);
+        bullet.mesh.rotation.set(this.mesh.rotation.x, this.mesh.rotation.y, this.mesh.rotation.z);
+        bullet.mesh.position.x = this.mesh.position.x;
+        bullet.mesh.position.y = 10;
+        bullet.mesh.position.z = this.mesh.position.z + this.radius + bullet.radius + 1 ;
+        // bullet.mesh.position.set(0,10,0);
 
         return bullet;
 
@@ -139,7 +139,7 @@ class Boat extends MovableObject {
         }
 
 
-        document.getElementById("debug").innerHTML = this.curSpeed + "\n" + this.mesh.position.x + "\n" + this.mesh.position.z;
+        // document.getElementById("debug").innerHTML = this.curSpeed + "\n" + this.mesh.position.x + "\n" + this.mesh.position.z;
         this.forward(this.curSpeed);
 
         // document.getElementById("debug").innerHTML = this.mesh.position.x + " " + this.mesh.position.z;

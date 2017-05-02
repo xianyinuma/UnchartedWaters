@@ -15,6 +15,7 @@ var output = "";
 var container;
 
 createWoodenShip();
+createBulletSphere();
 setTimeout(function () {
     init();
 // render(); // remove when using next line for animation loop (requestAnimationFrame)
@@ -50,10 +51,11 @@ function init() {
 
 
     //懒得加地面于是这是一个参照物
-    var geometry = new THREE.CubeGeometry(20, 20, 20);
-    var material = new THREE.MeshPhongMaterial({color: 0xffffff, shading: THREE.FlatShading});
-    var cubeRef = new THREE.Mesh(geometry, material);
-    cubeRef.updateMatrix();
+    // var geometry = new THREE.CubeGeometry(20, 20, 20);
+    // var material = new THREE.MeshPhongMaterial({color: 0xffffff, shading: THREE.FlatShading});
+    // var cubeRef = new THREE.Mesh(geometry, material);
+    // cubeRef.updateMatrix();
+    var cubeRef = BULLETSPHERE.clone();
     scene.add(cubeRef);
 
 
