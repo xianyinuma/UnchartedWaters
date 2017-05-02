@@ -1,17 +1,17 @@
-function Boat(scene,camera, id) {
+function Boat(scene, id) {
 
     this.id = id;
 
-    var level = 1;
-    var exp = 0;
-    var damage = Math.pow(2, level - 1);
-    var speed = 0.1 * level;
-    var maxExp = 10 * Math.pow(2, level - 1);
-    var giveExp = maxExp / 2;
-    var maxHealth = 3 * Math.pow(2, level - 1);
-    var health = maxHealth;
+    let level = 1;
+    let exp = 0;
+    let damage = Math.pow(2, level - 1);
+    let speed = 1 * level;
+    let maxExp = 10 * Math.pow(2, level - 1);
+    let giveExp = maxExp / 2;
+    let maxHealth = 3 * Math.pow(2, level - 1);
+    let health = maxHealth;
 
-    var speedTimeDecreaseFlag = false;
+    let speedTimeDecreaseFlag = false;
 
 
     var theta = 0;
@@ -19,20 +19,35 @@ function Boat(scene,camera, id) {
     //move info
     var time1, time2;
 
-    var geometry = new THREE.CubeGeometry(1,2,3);
+    var geometry = new THREE.CubeGeometry(20,15,45);
     var material = new THREE.MeshPhongMaterial({color: 0xffffff,shading: THREE.FlatShading});
     var body = new THREE.Mesh(geometry, material);
     body.updateMatrix();
     body.position.z = 1;
+    // var body = BOAT.clone();
 
     scene.add(body);
 
     this.bullet = "null"; // todo
 
 
+    this.setSpeed = function(spd){
+        this.speed = spd;
+    };
+
     this.getBody = function(){
         return body;
     };
+
+    this.getCurSpeed = function(){
+        return curSpeed;
+    };
+
+    this.getTheta = function(){
+        return theta;
+    };
+
+
 
 
     this.fire = function () {
@@ -63,32 +78,66 @@ function Boat(scene,camera, id) {
             }
         }
 
+
         forward(curSpeed);
 
     };
 
-    this.control = function(key){
-        switch (key){
-            case 'w':
-            case 's':
-            case 'a':
-            case 'd':
-                move(key);
+
+    let wFlag,aFlag,sFlag,dFlag = false;
 
 
+    this.control = function(key,operation){
+        if (operation == 'keydown'){
+            switch (key){
+                case 'w':
+                    wFlag = true;
+                    break;
+                case 's':
+                    sFlag = true;
+                    break;
+                case 'a':
+                    aFlag = true;
+                    break;
+                case 'd':
+                    dFlag = true;
+                    break;
+            }
+        }else if(operation == 'keyup'){
+            switch (key){
+                case 'w':
+                    wFlag = false;
+                    break;
+                case 's':
+                    sFlag = false;
+                    break;
+                case 'a':
+                    aFlag = false;
+                    break;
+                case 'd':
+                    dFlag = false;
+                    break;
+            }
         }
+
+
+        if (wFlag) move('w');
+        if (aFlag) move('a');
+        if (sFlag) move('s');
+        if (dFlag) move('d');
     };
+
 
     var move = function(key){
         switch(key){
             case 'w':
                 increaseSpd();
-                // time1 = Date.now();
+                time1 = Date.now();
                 speedTimeDecreaseFlag = false;
                 break;
             case 's':
                 decreaseSpd();
-                // time1 = Date.now();
+                time1 = Date.now();
                 speedTimeDecreaseFlag = false;
                 break;
             case 'a':
@@ -143,12 +192,7 @@ function Boat(scene,camera, id) {
     };
 
     var forward = function(dist){
-        var cameraX = camera.position.x;
-        var cameraY = camera.position.y;
-        var cameraZ = camera.position.z;
-        var cameraDirX = camera.rotation.x;
-        var cameraDirY = camera.rotation.y;
-        var cameraDirZ = camera.rotation.z;
+
 
         var xDir = body.position.x;
         var zDir = body.position.z;
@@ -165,18 +209,11 @@ function Boat(scene,camera, id) {
         body.position.x = xDir;
 
 
-        camera.position.x += dist * Math.sin(rad * theta);
-        camera.position.z += dist * Math.cos(rad * theta);
-        camera.position.y = cameraY;
-        camera.lookAt({
-            x : body.position.x,
-            y : body.position.y,
-            z : body.position.z,
-        });
-
     };
 
     //
+
+    //this part
 
     var changeHealth = function (add_health) {
         var after_change = health + add_health;
@@ -190,11 +227,11 @@ function Boat(scene,camera, id) {
     };
 
     var changeExp = function (add_exp) {
-        if(!this.levelUp(add_exp)){
+        if(!levelUp(add_exp)){
             exp += add_exp;
         }
     };
-    
+
     var levelUp = function (added_exp) {
         var after_exp = exp + added_exp;
         if (after_exp > maxExp) {

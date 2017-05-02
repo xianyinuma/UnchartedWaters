@@ -11,6 +11,7 @@ $(document).ready(function () {
     setTimeout(function() {
         let testManager = new GameManager(1);
     }, 1000);
+    
 
 
     function LoadModels() {

@@ -132,19 +132,19 @@ function createWoodenShip() {
 
     var loader = new THREE.OBJLoader(manager);
 
-    loader.load('../../assets/models/pangea3dgalleon.obj', function (object) {
+    loader.load('../../assets/models/pangea3dgalleon.obj', function (object) { //todo
 
         object.traverse(function (child) {
 
             if (child instanceof THREE.Mesh) {
 
                 child.material = new THREE.MeshLambertMaterial({color: 0x5C3A21});
-                child.position.y = -60;
+                child.rotation.y = -1.54;
             }
 
         });
         object.scale.set(0.2, 0.2, 0.2);
-        object.rotation.y = 1.54;
+        // object.rotation.y = 1.54;
 
         // object.geometry.computeBoundingSphere();
 
@@ -198,7 +198,7 @@ function createRecruit() {
 
         });
         object.scale.set(0.1, 0.1, 0.1);
-        object.position.set(0, 0, 0);
+        object.position.set(0, -4, 0);
         RECRUIT = object;
     }, onProgress, onError);
 
@@ -258,7 +258,7 @@ function createBullet() {
 }
 //The bullet which is round
 function createBulletSphere() {
-    var geometry = new THREE.SphereGeometry(3, 50, 20);
+    var geometry = new THREE.SphereGeometry(3);
 
     var material = new THREE.MeshPhongMaterial({
         color: 0x000000,
@@ -278,6 +278,7 @@ function createDoor(radius, tube, vertical, horizontal, p, q, heightScale) {
     var door = createPointCloud(geom);
     //door.rotation.x+=1;
     door.rotation.x += 2.5;
+    door.position.y += 15;
     DOOR = door;
 
 }
