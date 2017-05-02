@@ -18,7 +18,7 @@ class Map {
         this.AddSkyBox();
     }
 
-    UpdateStatus(boatArray, bulletArray, staticArray) {
+    UpdateStatus(boatArray, bulletArray) {
         for (let i = 0; i < boatArray.size(); i++) {
             boatArray.get(i).Move();
         }
@@ -27,7 +27,7 @@ class Map {
         }
     }
 
-    UpdateOutput(boatArray, bulletArray, staticArray) {
+    UpdateOutput(currentBoat, boatArray, bulletArray, staticArray) {
         //alert(boatArray.size());
         for (let i = 0; i < boatArray.size(); i++) {
             this.scene.add(boatArray.get(i).mesh)

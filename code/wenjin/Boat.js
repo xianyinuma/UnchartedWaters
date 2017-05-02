@@ -15,7 +15,7 @@ class Boat extends MovableObject {
         this.maxHealth = 3 * Math.pow(2, this.level - 1);
         this.health = this.maxHealth;
 
-        //for move
+            //for move
         this.speed = this.horizontalSpeed;
         this.wFlag = false;
         this.aFlag = false;
@@ -70,11 +70,14 @@ class Boat extends MovableObject {
         //let bulletID = 123;
         let bullet = new Bullet(this.playerID, this.damage, this.level * 10);
         bullet.mesh.rotation.set(this.mesh.rotation.x, this.mesh.rotation.y, this.mesh.rotation.z);
-        bullet.mesh.position.x = this.mesh.position.x;
-        bullet.mesh.position.y = 10;
-        bullet.mesh.position.z = this.mesh.position.z + this.radius + bullet.radius + 1 ;
+        // bullet.mesh.position.x = this.mesh.position.x;
+        // bullet.mesh.position.y = 10;
+        // bullet.mesh.position.z = this.mesh.position.z + this.radius + bullet.radius + 1 ;
         // bullet.mesh.position.set(0,10,0);
-
+        //debug
+        bullet.mesh.position.x = this.mesh.position.x;
+        bullet.mesh.position.y = 30;
+        bullet.mesh.position.z = this.mesh.position.z;
         return bullet;
 
     }

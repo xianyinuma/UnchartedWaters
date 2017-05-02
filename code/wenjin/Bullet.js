@@ -20,7 +20,7 @@ class Bullet extends MovableObject {
         // this.mesh.position.x = -5;
         // this.mesh.position.y = 0;
         this.mesh = BULLETSPHERE.clone();
-        this.radius = 3;
+        this.radius = 1;
 
     }
 

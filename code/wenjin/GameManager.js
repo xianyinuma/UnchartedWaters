@@ -47,6 +47,7 @@ class GameManager {
         UpdateOutput(currentBoat, boatArray, bulletArray, staticArray);//todo
 
         function UpdateOutput(currentBoat, boatArray, bulletArray, staticArray) {
+            sinkBullet(bulletArray);
             let feedback = currentBoat.BoatCheck(bulletArray, staticArray);
             if (feedback.static != null) {
                 //collision with static object
@@ -54,7 +55,10 @@ class GameManager {
                 staticArray.removeValue(feedback.static);
             }
             if (feedback.bullet != null) {
+                alert(-feedback.bullet.damage);
+                alert(currentBoat.health);
                 currentBoat.ChangeHealth(-feedback.bullet.damage);
+                alert(currentBoat.health);
                 if (currentBoat.health == 0) {
                     //died
                     boatArray.removeValue(currentBoat);
@@ -62,23 +66,35 @@ class GameManager {
 
                 }
                 bulletArray.removeValue(feedback.bullet);
-
             }
             
-            map.UpdateStatus(boatArray, bulletArray, staticArray);
-            map.UpdateOutput(boatArray, bulletArray, staticArray);
+            map.UpdateStatus(boatArray, bulletArray);
+            map.UpdateOutput(currentBoat, boatArray, bulletArray, staticArray);
             
-            document.getElementById("debug").innerHTML = bulletArray.size();
+            document.getElementById("debug").innerHTML = "bullet size:\n" + bulletArray.size() +
+                "\nboat size:\n" + boatArray.size() + "\nboat health:\n" + boatArray.get(0).health;
         }
 
 
+
+        function sinkBullet(bulletArray) {
+            for (let i = 0; i < bulletArray.size(); i++) {
+                let temp_bullet = bulletArray.get(i);
+                if(temp_bullet.mesh.position.y <= 0) {
+                    bulletArray.removeValue(temp_bullet)
+                }
+            }
+        }
+
         self.setInterval(function () {
+            CameraUpdate();
             UpdateOutput(currentBoat, boatArray, bulletArray, staticArray, camera);
             //camera更新
-            cameraUpdate();
-        }, 30);
-
-
+            //CameraUpdate();
+        }, 10);
+        // self.setInterval(function () {
+        //     CameraUpdate()
+        // }, 5);
 
         document.addEventListener('keydown', onKeyDown, false);
         document.addEventListener('keyup', onKeyUp, false);
@@ -105,10 +121,10 @@ class GameManager {
         }
 
 
-        function cameraUpdate() {
+        function CameraUpdate() {
             var cameraY = camera.position.y;
             var rad = Math.PI / 180;
-        
+
             camera.position.x += currentBoat.curSpeed * Math.sin(rad * currentBoat.theta);
             camera.position.z += currentBoat.curSpeed * Math.cos(rad * currentBoat.theta);
             camera.position.y = cameraY;
@@ -117,7 +133,7 @@ class GameManager {
                 y: currentBoat.mesh.position.y,
                 z: currentBoat.mesh.position.z
             });
-        
+
             controls.target.set(currentBoat.mesh.position.x, currentBoat.mesh.position.y, currentBoat.mesh.position.z);
             controls.update();
         }
