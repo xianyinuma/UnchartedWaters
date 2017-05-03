@@ -87,11 +87,10 @@ class GameManager {
         }
 
         self.setInterval(function () {
-            CameraUpdate();
             UpdateOutput(currentBoat, boatArray, bulletArray, staticArray, camera);
             //camera更新
             //CameraUpdate();
-        }, 10);
+        }, 50);
         // self.setInterval(function () {
         //     CameraUpdate()
         // }, 5);
@@ -102,22 +101,28 @@ class GameManager {
         function onKeyUp(event) {
             var value = String.fromCharCode(event.keyCode).toLowerCase();
 
-            currentBoat.control(value, 'keyup');
+            //currentBoat.control(value, 'keyup');
+            if (value == "w" || value == "s" || value == "a" || value=="d") {
+                currentBoat.control(value, 'keyup');
+            }
         }
 
         function onKeyDown(event) {
-            var value = String.fromCharCode(event.keyCode).toLowerCase();
-
-            if(value == "f"){
-                let bullet = currentBoat.Fire();
-                // alert(bullet.mesh.position.x);
-                // alert(bullet.mesh.position.y);
-                // alert(bullet.mesh.position.z);
-                // bullet.mesh.position.set(0,0,0);
-                bulletArray.add(bullet);
+            if(event.keyCode == 32) {
+                //space bar, sync the camera by the space bar
+                CameraUpdate();
             }
+            else {
+                var value = String.fromCharCode(event.keyCode).toLowerCase();
+                if(value == "f"){
+                    let bullet = currentBoat.Fire();
+                    bulletArray.add(bullet);
+                }
+                else if (value == "w" || value == "s" || value == "a" || value=="d") {
+                    currentBoat.control(value, 'keydown');
+                }
 
-            currentBoat.control(value, 'keydown');
+            }
         }
 
 
@@ -137,6 +142,6 @@ class GameManager {
             controls.target.set(currentBoat.mesh.position.x, currentBoat.mesh.position.y, currentBoat.mesh.position.z);
             controls.update();
         }
-        //镜头跟踪，用户体验无敌尬，不建议开启
+        //镜头跟踪，用户按下space bar空格键同步，模拟LOL视角控制
     }
 }
